@@ -11,7 +11,6 @@
     <title>index</title>
 </head>
 <body>
-<h2><a href="<%request.getContextPath();%>/hello.form">Hello</a> World!</h2>
-
+<h2><a href="<%request.getContextPath();%>/hello">Hello World!</a></h2>
 </body>
 </html>

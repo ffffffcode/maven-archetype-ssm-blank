@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 指明 controller 所在包，并扫描其中的注解 -->
-    <context:component-scan base-package="ex.aaronfae.controller"/>
-    <!-- 开启注解 -->
-    <mvc:annotation-driven/>
-    <!-- 用于支持Servlet、JSP视图解析 -->
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!-- 这里的配置我的理解是自动给后面form的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/JSP/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-    <!-- 静态资源(js、image等)的访问 -->
-    <mvc:default-servlet-handler/>
     <!-- 指明 service 所在包，并扫描其中的注解 -->
     <context:component-scan base-package="ex.aaronfae.services"/>
     <!-- 配置完service后开始配置dao层 -->
     <!-- 加载配置文件 -->
-    <context:property-placeholder location="/WEB-INF/database.properties"/>
+    <context:property-placeholder location="classpath:database.properties"/>
     <!-- 数据库连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -40,7 +26,7 @@
         <!-- 数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 加载mybatis的全局配置文件 -->
-        <property name="configLocation" value="/WEB-INF/SqlMapConfig.xml"/>
+        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
     </bean>
     <!-- 配置Mapper扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
